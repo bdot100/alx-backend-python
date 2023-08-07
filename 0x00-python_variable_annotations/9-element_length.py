@@ -5,16 +5,9 @@ values with the appropriate types
 
 
 """
-from typing import Callable
+from typing import Iterable, Sequence, List, Tuple
 
 
-def make_multiplier(multiplier: float) -> Callable[[float], float]:
-    """
-    Write a type-annotated function make_multiplier that takes a 
-    float multiplier as argument and returns a function that 
-    multiplies a float by multiplier.
-    """
-    def multiplier_function(x: float) -> float:
-        """Function Callable"""
-        return x * multiplier
-    return multiplier_function
+def element_length(lst: Iterable[Sequence]) -> List[Tuple[Sequence, int]]:
+    """Function annotated"""
+    return [(i, len(i)) for i in lst]
