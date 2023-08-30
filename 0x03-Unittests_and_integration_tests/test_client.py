@@ -19,7 +19,7 @@ from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    """Tests the `GithubOrgClient` class."""
+    """This class Tests the `GithubOrgClient` class."""
     @parameterized.expand([
         ("google", {'login': "google"}),
         ("abc", {'login': "abc"}),
@@ -28,7 +28,7 @@ class TestGithubOrgClient(unittest.TestCase):
         "client.get_json",
     )
     def test_org(self, org: str, resp: Dict, mocked_fxn: MagicMock) -> None:
-        """Tests the `org` method."""
+        """function Tests the `org` method."""
         mocked_fxn.return_value = MagicMock(return_value=resp)
         gh_org_client = GithubOrgClient(org)
         self.assertEqual(gh_org_client.org(), resp)
@@ -37,7 +37,7 @@ class TestGithubOrgClient(unittest.TestCase):
         )
 
     def test_public_repos_url(self) -> None:
-        """Tests the `_public_repos_url` property."""
+        """function Tests the `_public_repos_url` property."""
         with patch(
                 "client.GithubOrgClient.org",
                 new_callable=PropertyMock,
@@ -52,7 +52,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch("client.get_json")
     def test_public_repos(self, mock_get_json: MagicMock) -> None:
-        """Tests the `public_repos` method."""
+        """Function Tests the `public_repos` method."""
         test_payload = {
             'repos_url': "https://api.github.com/users/google/repos",
             'repos': [
@@ -126,7 +126,7 @@ class TestGithubOrgClient(unittest.TestCase):
     },
 ])
 class TestIntegrationGithubOrgClient(unittest.TestCase):
-    """Performs integration tests for the `GithubOrgClient` class."""
+    """Class Performs integration tests for the `GithubOrgClient` class."""
     @classmethod
     def setUpClass(cls) -> None:
         """Sets up class fixtures before running tests."""
@@ -144,14 +144,14 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.get_patcher.start()
 
     def test_public_repos(self) -> None:
-        """Tests the `public_repos` method."""
+        """Function to Test the `public_repos` method."""
         self.assertEqual(
             GithubOrgClient("google").public_repos(),
             self.expected_repos,
         )
 
     def test_public_repos_with_license(self) -> None:
-        """Tests the `public_repos` method with a license."""
+        """Function Tests the `public_repos` method with a license."""
         self.assertEqual(
             GithubOrgClient("google").public_repos(license="apache-2.0"),
             self.apache2_repos,
@@ -159,5 +159,5 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls) -> None:
-        """Removes the class fixtures after running all tests."""
+        """Function Removes the class fixtures after running all tests."""
         cls.get_patcher.stop()
